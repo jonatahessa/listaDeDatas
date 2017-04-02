@@ -37,7 +37,7 @@ function adicionar(){
   if (validar(valor) == true){
     itemlista.innerHTML = valor + "<button class='fechar'/>";    
   }
-  window.addEventListener("load",main);
+  
 }
 
 function validar(texto){
@@ -62,6 +62,8 @@ function validar(texto){
         }
         return true;
 }
+
+window.addEventListener("load",main);
 
 
 /*
