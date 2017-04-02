@@ -35,21 +35,35 @@ function adicionar(){
   lista.appendChild(itemlista);
 
   if (validar(valor) == true){
-    itemlista.innerHTML = valor + "<button/>";
+    itemlista.innerHTML = valor + "<button class='fechar'/>";    
   }
+  window.addEventListener("load",main);
 }
 
 function validar(texto){
-  var valido = true;
-  //[TODO] => Validar se o texto é uma data;
-  // EXPRESSAO REGULAR texto.match(/\d\d\d\d-\d\d-\d\d/)
-  // INSTANCIAR DATA Date.parse(texto);
-  // texto[0]
-  // texto.split("CARACTER DE SEPARACAO")
-  return valido;
+  texto = texto.replace(/[^0-9\/]/g, "");
+        var partes = texto.split("/");
+        if( partes.length != 3 ) return false;
+        var dia = partes[0];
+        var mes = partes[1];
+        var ano = partes[2];
+        if( isNaN(dia) || isNaN(mes) || isNaN(ano) ) return false;
+        if( mes > 12 || mes < 1 || ano < 1 || dia < 1) return false;
+        if( mes == 2 ) {
+                maiorDia = ( ( (!(ano % 4)) && (ano % 100) ) || (!(ano % 400)) )? 29: 28;
+                if( dia > maiorDia ) return false;
+        }else {
+                if( mes == 4 || mes == 6 || mes == 9 || mes == 11 ) {
+
+                        if( dia > 30 ) return false;
+                }else {
+                        if( dia > 31 ) return false;
+                }
+        }
+        return true;
 }
 
-window.addEventListener("load",main);
+
 /*
 function ativar(){
   var paragrafo = document.querySelector("p.ativo");

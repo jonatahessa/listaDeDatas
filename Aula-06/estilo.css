@@ -1,0 +1,20 @@
+html, body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.fechar {
+    background-image: url(https://www.bearts.com.br/wp-content/uploads/2017/03/botao-fechar-preto.png);
+    background-position: center;
+    background-size: 20px;
+    width: 15px;
+    height: 15px;
+}
+
+div {
+    margin-top: 40px;
+    margin-left: 40px;
+}
+
+
