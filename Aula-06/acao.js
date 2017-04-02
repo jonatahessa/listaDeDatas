@@ -1,71 +1,66 @@
 /* COMMANDOS DE BUSCA NO DOM*/
-  // document.querySelector("SELETOR CSS");
-  // document.querySelectorAll("SELETOR CSS");
+// document.querySelector("SELETOR CSS");
+// document.querySelectorAll("SELETOR CSS");
 
-  // document.children[0].children[1].children[1];
-  // document.getElementsByTagName("COMANDO HTML");
-  // document.getElementsByClassName("CLASSE");
-  // document.getElementById("ID");
-  // document.getElementsByName("NOME DO CAMPO");
-  // $x("X-PATH");
+// document.children[0].children[1].children[1];
+// document.getElementsByTagName("COMANDO HTML");
+// document.getElementsByClassName("CLASSE");
+// document.getElementById("ID");
+// document.getElementsByName("NOME DO CAMPO");
+// $x("X-PATH");
 
 
 /* COMANDOS COM ELEMENTOS */
-  // elemento.parentNode ==> Acessa o pai do elemento
-  // document.createElement("COMANDO HTML");
-  // pai.appendChild(filho);
-  // elemento.remove(); //CUIDADO NO IE;
-  // elemento.parentNode.removeChild(elmento);
+// elemento.parentNode ==> Acessa o pai do elemento
+// document.createElement("COMANDO HTML");
+// pai.appendChild(filho);
+// elemento.remove(); //CUIDADO NO IE;
+// elemento.parentNode.removeChild(elmento);
 
 /* COMANDO DE MODIFICAÇÃO */
-  // elemtno.setAttribute("ATTR","VALOR");
-  // elemento.PROPRIEDADE = VALOR;
-  // elemento.style["ESTILO CSS"] = VALOR;
+// elemtno.setAttribute("ATTR","VALOR");
+// elemento.PROPRIEDADE = VALOR;
+// elemento.style["ESTILO CSS"] = VALOR;
 
-function main(){
+function main() {
   var btn = document.querySelector("button#btn");
-  btn.addEventListener("click",adicionar);
+  btn.addEventListener("click", ativar);
 }
 
-function adicionar(){
+var id = 0;
+var datas = [];
+
+function ativar() {
   var lista = document.querySelector("ol#lista");
-  var conteudo = document.querySelector("input[name=texto]");
-  var itemlista = document.createElement("li");
-  var valor = conteudo.value;
-  lista.appendChild(itemlista);
-
-  if (validar(valor) == true){
-    itemlista.innerHTML = valor + "<button class='fechar'/>";    
+  var conteudo = document.querySelector("input[name=texto]").value;
+  if (validar(conteudo) == true) {
+    id = id + 1;
+    var format = conteudo.replace("/", "-");
+    var format2 = format.replace("/", "-");
+    lista.innerHTML += format2 + " " + "<button class='fechar' id='" + id + "'>Remover</button></li>";
+    pintaData(format2, datas, id);
+    datas.push(format2 + " " + id);
   }
-  
 }
 
-function validar(texto){
-  texto = texto.replace(/[^0-9\/]/g, "");
-        var partes = texto.split("/");
-        if( partes.length != 3 ) return false;
-        var dia = partes[0];
-        var mes = partes[1];
-        var ano = partes[2];
-        if( isNaN(dia) || isNaN(mes) || isNaN(ano) ) return false;
-        if( mes > 12 || mes < 1 || ano < 1 || dia < 1) return false;
-        if( mes == 2 ) {
-                maiorDia = ( ( (!(ano % 4)) && (ano % 100) ) || (!(ano % 400)) )? 29: 28;
-                if( dia > maiorDia ) return false;
-        }else {
-                if( mes == 4 || mes == 6 || mes == 9 || mes == 11 ) {
-
-                        if( dia > 30 ) return false;
-                }else {
-                        if( dia > 31 ) return false;
-                }
-        }
-        return true;
+function validar(texto) {
+  var valido = false;
+  if (Date.parse(texto) && (texto.length == 10)) {
+    valido = true;
+  }
+  return valido;
 }
 
-window.addEventListener("load",main);
+function pintaData(data, datas, ids) {
+  for (var i = 0; i < datas.length; i++) {
+    if (data.substring(0, 10) == datas[i].substring(0, 10)) {
+      document.getElementById(ids).style.color = "red";
+      document.getElementById(datas[i].substring(11, 12)).style.color = "red";
+    }
+  }
+}
 
-
+window.addEventListener("load", main);
 /*
 function ativar(){
   var paragrafo = document.querySelector("p.ativo");
